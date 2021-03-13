@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <h2>{{message}}</h2>
+    <temp></temp>
+</div>
+<template id="temp">
+    <!--注意，template下面不能直接有多个字元素，一定要有一个跟元素包着
+    <template>
+        <div>这种方式是可以的</div>
+    </template>
+
+    <template>
+        <div>这种方式是不可以的</div>
+        <span>因为div和span没有一个公共的root元素</span>
+    </template>
+    -->
+    <div>
+        <div>{{temp_msg}}</div>
+        <ul>
+            <li v-for="(item,index) in list">{{index+1}}.{{item}}</li>
+        </ul>
+    </div>
+</template>
+<script src="js/vue.js"></script>
+<script>
+
+    let temp = {
+        template: '#temp',
+        data() {
+            return {
+                temp_msg: 'hello，我是模板',
+                list: ["a", "b", "c"]
+            }
+        }
+    }
+
+    let app = new Vue({
+        el: "#app",
+        data: {
+            message: 'hello world'
+        },
+        components: {
+            "temp": temp
+        }
+    })
+
+</script>
+</body>
+</html>
