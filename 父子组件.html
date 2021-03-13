@@ -8,7 +8,6 @@
 <div id="app">
     <h2>{{message}}</h2>
     <temp></temp>
-    <counter></counter>
 </div>
 <template id="temp">
     <div>
@@ -17,6 +16,7 @@
         <ul>
             <li v-for="(item,index) in list">{{index+1}}.{{item}}</li>
         </ul>
+        <counter></counter>
     </div>
 </template>
 
@@ -31,22 +31,6 @@
 
 <script src="js/vue.js"></script>
 <script>
-
-    let temp = {
-        template: '#temp',
-        data() {
-            return {
-                temp_msg: 'hello，我是模板',
-                list: ["a", "b", "c"],
-            }
-        },
-        computed: {
-            reverseMsg() {
-                return this.temp_msg.split("").reverse().join("");
-            }
-        }
-    }
-
     let countTemp = {
         template: "#counter",
         data() {
@@ -68,6 +52,25 @@
             }
         }
     }
+    let temp = {
+        template: '#temp',
+        data() {
+            return {
+                temp_msg: 'hello，我是模板',
+                list: ["a", "b", "c"],
+            }
+        },
+        components:{
+            "counter": countTemp
+        },
+        computed: {
+            reverseMsg() {
+                return this.temp_msg.split("").reverse().join("");
+            }
+        }
+    }
+
+
 
     let app = new Vue({
         el: "#app",

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <h1>注意：props是单向的，只能父组件传到子组件，如果需要子组件传到父组件，使用自定义事件emit</h1>
+    <h2>{{message}}</h2>
+    <temp :booklist="list"></temp>
+</div>
+<template id="temp">
+    <div>
+        <div>{{temp_msg}}</div>
+        <ul>
+            <li v-for="(item,index) in booklist">{{item}}</li>
+        </ul>
+    </div>
+</template>
+
+<script src="js/vue.js"></script>
+<script>
+
+    let temp = {
+        template: '#temp',
+        data() {
+            return {
+                temp_msg: 'hello，我是模板',
+
+            }
+        },
+        /*非验证写法*/
+        /*  props:["booklist"],*/
+        /*验证写法*/
+        props: {
+            /*注意，这里的属性名不支持驼峰，驼峰会被解析成"-"分隔*/
+            "booklist": {
+                type: Array,
+                default: [],
+                required: true,
+            }
+
+        },
+
+        computed: {}
+    }
+
+    let app = new Vue({
+        el: "#app",
+        data: {
+            message: 'hello world',
+            list: ["三国演义", "水浒传", "红楼梦", "西游记"],
+        },
+        components: {
+            "temp": temp,
+        }
+    })
+
+</script>
+</body>
+</html>
